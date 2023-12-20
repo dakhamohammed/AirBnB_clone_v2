@@ -35,7 +35,10 @@ class FileStorage:
             return self.__objects
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
+        """Adds new object to storage dictionary
+        Args:
+            obj: given object
+        """
         if obj:
             key = f'{type(obj).__name__}.{obj.id}'
             self.__objects[key] = obj
