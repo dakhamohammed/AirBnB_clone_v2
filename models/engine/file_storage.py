@@ -28,7 +28,7 @@ class FileStorage:
             for key in _dict_:
                 _dict_partition = key.replace('.', ' ')
                 _dict_partition = shlex.split(_dict_partition)
-                if _dict_partition[0] == cls.__name__:
+                if (_dict_partition[0] == cls.__name__):
                     _dict[key] = self.__objects[key]
             return _dict
         else:
