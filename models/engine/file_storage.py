@@ -28,7 +28,7 @@ class FileStorage:
             for key in _dict_:
                 _dict_partition = key.replace('.', ' ')
                 _dict_partition = shlex.split(_dict_partition)
-                if _dict_partition[0] == cls.__name__:
+                if (_dict_partition[0] == cls.__name__):
                     _dict[key] = self.__objects[key]
             return _dict
         else:
@@ -64,7 +64,7 @@ class FileStorage:
     def delete(self, obj=None):
         """delete object from a list of objects."""
         if obj:
-            obj_to_delete = f'{type(obj).__name__}.{obj.id}'
+            obj_to_delete = "{}.{}".format(type(obj).__name__, obj.id)
             del self.__objects[obj_to_delete]
 
     def close(self):
