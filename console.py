@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
-import shlex
 import sys
 from models.__init__ import storage
 from models.base_model import BaseModel
@@ -74,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] == '{' and pline[-1] =='}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -122,11 +121,11 @@ class HBNBCommand(cmd.Cmd):
             param_dict = {}
             param_list = args.split(" ")
             for param in param_list[1:]:
-                key_val_split = param.split("=")
-                key_val_split[1] = eval(key_val_split[1])
-                if type(key_val_split[1]) is str:
-                    key_val_split[1] = key_val_split[1].replace("_", " ").replace('"', '\\"')
-                param_dict[key_val_split[0]] = key_val_split[1]
+                _split = param.split("=")
+                _split[1] = eval(_split[1])
+                if type(_split[1]) is str:
+                    _split[1] = _split[1].replace("_", " ").replace('"', '\\"')
+                param_dict[_split[0]] = _split[1]
         except SyntaxError:
             print("** class name missing **")
         except NameError:
@@ -327,6 +326,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

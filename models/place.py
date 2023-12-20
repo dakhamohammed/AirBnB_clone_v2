@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-import shlex
-from models import Amenity
 from models.base_model import BaseModel, Base
 import models
 from sqlalchemy import Column, String, Integer, Float, Table, ForeignKey
@@ -22,10 +20,23 @@ place_amenity = Table("place_amenity", Base.metadata,
 
 
 class Place(BaseModel, Base):
-    """ A place to stay """
+    """ A place to stay
+    Attributes:
+        city_id: city id
+        user_id: user id
+        name: place name
+        description: place description
+        number_rooms: number of room in the place
+        number_bathrooms: number of bathrooms in place
+        max_guest: maximum guest number
+        price_by_night:: price for one night
+        latitude: latitude in flaot
+        longitude: longitude in float
+        amenity_ids: list of Amenity ids
+    """
     __tablename__ = "places"
-    city_id = Column(String(60), nullable=False, foreign_key="cities.id")
-    user_id = Column(String(60), nullable=False, foreign_key="users.id")
+    city_id = Column(String(60), nullable=False, ForeignKey("cities.id"))
+    user_id = Column(String(60), nullable=False, ForeignKey("cities.id"))
     name = Column(String(128), nullable=False)
     description = Column(String(1024), nullable=True)
     number_rooms = Column(Integer, default=0, nullable=False)
@@ -45,15 +56,18 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
+            """return list of review"""
+            obj = models.storage.all()
             reviews_list = []
             reviews_list_to_return = []
-            for key in models.storage.all():
-                review = shlex.split(key.replace('.', ' '))
-                if review[0] == 'Review':
-                    reviews_list.append(models.storage.all(key))
-            for obj in reviews_list:
-                if obj.place_id == self.id:
-                    reviews_list_to_return.append(obj)
+            for key in obj:
+                review_obj = key.replace('.', ' ')
+                review_obj = shlex.split(review_obj)
+                if review_obj[0] == 'Review':
+                    reviews_list.append(obj[key])
+            for val in reviews_list:
+                if val.place_id == self.id:
+                    reviews_list_to_return.append(val)
             return reviews_list_to_return
 
         @property
@@ -62,7 +76,7 @@ class Place(BaseModel, Base):
             return self.amenity_ids
 
         @amenities.setter
-        def amenities(self, amenity_obj=None):
+        def amenities(self, obj=None):
             """handles append method for adding an Amenity.id"""
-            if type(amenity_obj) is Amenity and amenity_obj not in self.amenity_ids:
-                self.amenity_ids.append(amenity_obj.id)
+            if type(obj) is Amenity and obj.id not in self.amenity_ids:
+                self.amenity_ids.append(obj.id)

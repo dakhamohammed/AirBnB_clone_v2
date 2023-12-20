@@ -6,8 +6,11 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
-class Amenity(BaseModel):
-    """ Amenity Model."""
+class Amenity(BaseModel, Base):
+    """ Amenity Model.
+    Attributes:
+        name: amenity name.
+    """
     __tablename__ = "amenities"
     name = Column(String(128), nullable=False)
     place_amenities = relationship("Place", secondary=place_amenity)

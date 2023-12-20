@@ -3,14 +3,17 @@
 from models.base_model import BaseModel, Base
 from models.city import City
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import models
 import shlex
 
 
 class State(BaseModel, Base):
-    """ State class """
+    """ State class
+    Attributes:
+        name: state name.
+    """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities = relationship("City", cascade='all, delete, delete-orphan',
@@ -18,12 +21,15 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
-        obj = models.storage.all(City)
+        obj = models.storage.all()
         list_of_cities = []
         return_list_of_cities = []
         for key in obj:
-            list_of_cities.append(obj[key])
-        for key in list_of_cities:
-            if key.state.id == self.id:
-                return_list_of_cities.append(key)
+            city_obj = key.replace('.', ' ')
+            city_obj = shlex.split(city_obj)
+            if city_obj[0] == 'City':
+                list_of_cities.append(obj[key])
+        for val in list_of_cities:
+            if val.state_id == self.id:
+                return_list_of_cities.append(val)
         return return_list_of_cities
