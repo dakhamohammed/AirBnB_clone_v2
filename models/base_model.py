@@ -6,6 +6,7 @@ import models
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
 
+
 Base = declarative_base()
 
 
@@ -16,7 +17,15 @@ class BaseModel:
     updated_at = Column(DateTime, nullable=False, default=(datetime.utcnow()))
 
     def __init__(self, *args, **kwargs):
-        """Instatntiates a new model"""
+        """Instatntiates a new model
+        Arguments:
+            args: unused argument.
+            kwargs: pointer to the list of argument.
+        Attributes:
+            id: unique id.
+            created_at: created date.
+            updated_at: updated date.
+        """
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
