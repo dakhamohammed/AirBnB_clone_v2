@@ -13,10 +13,10 @@ from models.review import Review
 
 class FileStorage:
     """This class manages storage of hbnb models in JSON format
-	Attributes:
+    Attributes:
         __file_path: JSON file path
         __objects: objects dictionary
-	"""
+    """
     __file_path = 'file.json'
     __objects = {}
 
@@ -63,3 +63,7 @@ class FileStorage:
         if obj:
             obj_to_delete = f'{type(obj).__name__}.{obj.id}'
             del self.__objects[obj_to_delete]
+
+    def close(self):
+        """ calls reload method"""
+        self.reload()
