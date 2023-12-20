@@ -65,7 +65,7 @@ class FileStorage:
         """delete object from a list of objects."""
         if obj:
             obj_to_delete = f'{type(obj).__name__}.{obj.id}'
-            del self.__objects[obj_to_delete]
+            del self.__objects[obj_to_delete] = obj
 
     def close(self):
         """ calls reload method"""
