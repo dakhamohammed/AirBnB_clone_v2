@@ -2,12 +2,12 @@
 """ Console Module """
 import cmd
 import sys
-from models.__init__ import storage
 from models.base_model import BaseModel
+from models.__init__ import storage
 from models.user import User
+from models.place import Place
 from models.state import State
 from models.city import City
-from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
@@ -114,33 +114,33 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class"""
+        """create an object of class"""
         try:
             if not args:
                 raise SyntaxError()
-            param_dict = {}
-            param_list = args.split(" ")
-            for param in param_list[1:]:
-                _split = param.split("=")
+            argument = args.split(" ")
+            keys = {}
+            for arg in argument[1:]:
+                _split = arg.split("=")
                 _split[1] = eval(_split[1])
                 if type(_split[1]) is str:
                     _split[1] = _split[1].replace("_", " ").replace('"', '\\"')
-                param_dict[_split[0]] = _split[1]
+                keys[_split[0]] = _split[1]
         except SyntaxError:
             print("** class name missing **")
         except NameError:
             print("** class doesn't exist **")
-        new_instance = HBNBCommand.classes[param_list[0]](**param_dict)
+        new_instance = HBNBCommand.classes[argument[0]](**keys)
         new_instance.save()
         print(new_instance.id)
 
     def help_create(self):
-        """ Help information for the create method """
+        """help for the create method"""
         print("Creates a class of any type")
         print("[Usage]: create <className>\n")
 
     def do_show(self, args):
-        """ Method to show an individual object """
+        """method to show an individual object"""
         new = args.partition(" ")
         c_name = new[0]
         c_id = new[2]
@@ -219,7 +219,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             for k, v in storage.all().items():
                 print_list.append(str(v))
-
         print(print_list)
 
     def help_all(self):
