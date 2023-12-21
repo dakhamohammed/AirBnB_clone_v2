@@ -22,9 +22,9 @@ class DBStorage:
         user = getenv("HBNB_MYSQL_USER")
         password = getenv("HBNB_MYSQL_PWD")
         host = getenv("HBNB_MYSQL_HOST")
-        db_name = getenv("HBNB_MYSQL_DB")
+        db = getenv("HBNB_MYSQL_DB")
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                                      .format(user, password, host, db_name),
+                                      .format(user, password, host, db),
                                       pool_pre_ping=True)
 
         if getenv("HBNB_ENV") == "test":
@@ -64,7 +64,7 @@ class DBStorage:
 
     def reload(self):
         """this method create or reload the current database session"""
-        Base.metadata.create_all(self.__enging)
+        Base.metadata.create_all(self.__engine)
         curr_sess = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(curr_sess)
         self.__session = Session()
