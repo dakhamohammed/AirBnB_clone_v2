@@ -33,7 +33,7 @@ printf %s "<html>
 
 printf %s "server {
 	listen 80 backlog=4096 default_server;
-	server_name  web-01.dakhamed-dom.tech;
+	#server_name  web-01.dakhamed-dom.tech;
 	add_header X-Served-By "$HOSTNAME";
 	
 	location / {
