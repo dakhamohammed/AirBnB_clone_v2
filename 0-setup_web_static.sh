@@ -19,10 +19,17 @@ mkdir -p /data/web_static/shared/
 mkdir -p /data/web_static/releases/test/
 chown -R ubuntu /data/
 chgrp -R ubuntu /data/
-echo "Holberton School" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 rm /etc/nginx/conf.d/default.conf
+
+printf %s "<html>
+	<head>
+	</head>
+	<body>
+		Holberton School
+	</body>
+</html>" > /data/web_static/releases/test/index.html
 
 printf %s "server {
 	listen 80 backlog=4096 default_server;
