@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Bash script that sets up your web servers for the deployment of web_static.
+
 apt update
 apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring
 
