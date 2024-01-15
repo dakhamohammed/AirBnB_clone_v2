@@ -9,7 +9,7 @@ from datetime import datetime
 def do_pack():
     """Fabric script that generates a .tgz archive from the contents
     of the web_static folder."""
-    _time = = datetime.utcnow()
+    _time = datetime.utcnow()
     archive = "versions/web_static_{}{}{}{}{}{}.tgz".format(_time.year,
                                                             _time.month,
                                                             _time.day,
