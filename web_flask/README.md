@@ -14,7 +14,7 @@
 * How to display in HTML data from a MySQL database
 
 ### Requirememnts:
-    * Insall Flask web application framework.
+    * Insall Flask web application framework:
       ```bash
       $ pip3 install Flask
       ```
