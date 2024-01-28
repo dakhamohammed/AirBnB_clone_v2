@@ -4,7 +4,6 @@ from flask import Flask
 
 app = Flask(__name__)
 
-
 @app.route('/', strict_slashes=False)
 def home():
 	"""root route that display simple text."""
@@ -12,4 +11,5 @@ def home():
 
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')
+
