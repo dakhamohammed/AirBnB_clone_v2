@@ -19,12 +19,9 @@ def hbnb():
     return 'HBNB'
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_route():
-    """"display C followed by the value of text.""""
-    for c in text:
-        if c == '_':
-            text[c] = ' '
-    return f'C {text}'
+def c_route(text):
+    """display C followed by the value of text."""
+    return 'C ' + text.replace('_', ' ')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
