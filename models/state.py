@@ -21,6 +21,8 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        """return the list of City objects from storage linked to the
+        current State."""
         obj = models.storage.all()
         list_of_cities = []
         return_list_of_cities = []
